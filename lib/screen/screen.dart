@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:pixel_assignment/provider/pagination_provider.dart';
 import 'package:pixel_assignment/service/api.dart';
@@ -12,12 +11,10 @@ class EmployeeListScreen extends StatefulWidget {
 }
 
 class _EmployeeListScreenState extends State<EmployeeListScreen> {
-
   String? selectedCountry;
   String? selectedGender;
 
-  bool isAscending=true;
-  
+  bool isAscending = true;
 
   late Future<List<dynamic>> futureUsers;
 
@@ -47,7 +44,6 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Employees'),
-        
       ),
       body: FutureBuilder<List<dynamic>>(
         future: futureUsers,
@@ -64,67 +60,69 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
               Provider.of<DataPagination>(context, listen: false).usersData =
                   data;
 
-                  Provider.of<DataPagination>(context, listen: false).allData =
+              Provider.of<DataPagination>(context, listen: false).allData =
                   data;
 
-              return Scaffold(body: Column(
+              return Scaffold(
+                  body: Column(
                 children: [
-                  
                   Row(
                     children: [
                       // const SizedBox(width: 1300,),
                       const Spacer(),
                       Container(
-                       
                         //margin: EdgeInsets.all(10),
                         padding: const EdgeInsets.all(5),
                         decoration: BoxDecoration(
-                          //color: Colors.blue,
-                          border: Border.all(color: const Color(0x60313030),width: 2)
-                        ),
+                            //color: Colors.blue,
+                            border: Border.all(
+                                color: const Color(0x60313030), width: 2)),
                         child: DropdownButton<String>(
-                              value: selectedCountry,
-                              hint: const Text('Country'),  
-                              items: const [
-                                DropdownMenuItem<String>(
-                                  value: 'United States',
-                                  child: Text('United States'),
-                                ),
-                              ],
-                              onChanged: (String? newValue) {
-                                setState(() {
-                                  selectedCountry = newValue;
-                                });}),
+                            value: selectedCountry,
+                            hint: const Text('Country'),
+                            items: const [
+                              DropdownMenuItem<String>(
+                                value: 'United States',
+                                child: Text('United States'),
+                              ),
+                            ],
+                            onChanged: (String? newValue) {
+                              setState(() {
+                                selectedCountry = newValue;
+                              });
+                            }),
                       ),
-       
-      const SizedBox(width: 5,),
-         Container(
-          margin: const EdgeInsets.only(right: 10),
-          padding: const EdgeInsets.all(5),
+
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(right: 10),
+                        padding: const EdgeInsets.all(5),
                         decoration: BoxDecoration(
-                          //color: Colors.blue,
-                          border: Border.all(color: const Color(0x60313030),width: 2)
-                        ),
-           child: DropdownButton<String>(
-                 value: selectedGender,
-                 hint: const Text('Gender'),  
-                 items: const [
-                   DropdownMenuItem<String>(
-            value: 'male',
-            child: Text('Male'),
-            
-                   ),
-           DropdownMenuItem<String>(
-                value: 'female',
-                child: Text('Female'),
-              ),
-                 ],
-                 onChanged: (String? newValue) {
-                       selectedGender = newValue;
-                       Provider.of<DataPagination>(context,listen: false).filterByGender(selectedGender!);
-                  
-                   }),
-         ),
+                            //color: Colors.blue,
+                            border: Border.all(
+                                color: const Color(0x60313030), width: 2)),
+                        child: DropdownButton<String>(
+                            value: selectedGender,
+                            hint: const Text('Gender'),
+                            items: const [
+                              DropdownMenuItem<String>(
+                                value: 'male',
+                                child: Text('Male'),
+                              ),
+                              DropdownMenuItem<String>(
+                                value: 'female',
+                                child: Text('Female'),
+                              ),
+                            ],
+                            onChanged: (String? newValue) {
+                              selectedGender = newValue;
+                              Provider.of<DataPagination>(context,
+                                      listen: false)
+                                  .filterByGender(selectedGender!);
+                            }),
+                      ),
                     ],
                   ),
                   Expanded(
@@ -135,40 +133,56 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
                           itemCount: 1,
                           itemBuilder: (context, index) {
                             return DataTable(
-
                                 columns: [
-                                  DataColumn(label: Row(children: [
-                                    const Text("ID"),
-                                    GestureDetector(
-                                      onTap: (){
-                                         Provider.of<DataPagination>(context,listen: false).reverseId();
-                                      }
-                                      ,
-                                      child: const Icon(Icons.arrow_upward,color: Color.fromARGB(255, 59, 58, 58),)),
-                                    GestureDetector(
-                                      onTap:(){
-                                         Provider.of<DataPagination>(context,listen: false).reverseId();
-                                      } ,child:const Icon(Icons.arrow_downward,color: Colors.red,))]),),
+                                  DataColumn(
+                                    label: Row(children: [
+                                      const Text("ID"),
+                                      GestureDetector(
+                                          onTap: () {
+                                            Provider.of<DataPagination>(context,
+                                                    listen: false)
+                                                .reverseId();
+                                          },
+                                          child: const Icon(
+                                            Icons.arrow_upward,
+                                            color:
+                                                Color.fromARGB(255, 59, 58, 58),
+                                          )),
+                                      GestureDetector(
+                                          onTap: () {
+                                            Provider.of<DataPagination>(context,
+                                                    listen: false)
+                                                .reverseId();
+                                          },
+                                          child: const Icon(
+                                            Icons.arrow_downward,
+                                            color: Colors.red,
+                                          ))
+                                    ]),
+                                  ),
                                   const DataColumn(label: Text("Image")),
-                                  DataColumn(label: Row(
+                                  DataColumn(
+                                      label: Row(
                                     children: [
-                                      
-                                      Row(children: 
-                                      [const Text("Full Name"),
-                                      
-                                    GestureDetector(
-                                      onTap: (){
-                                        isAscending=!isAscending;
-                                            Provider.of<DataPagination>(context,listen: false).sortUsersByName(isAscending);
-                                            //isAscending=false;
-
-                                      }
-                                      ,
-                                      child: const Icon(Icons.arrow_upward,color: Color.fromARGB(255, 59, 58, 58),)),
-                                    GestureDetector(
-                                      onTap:(){
-
-                                      } ,child:const Icon(Icons.arrow_downward,color: Colors.red,))]),
+                                      Row(children: [
+                                        const Text("Full Name"),
+                                        GestureDetector(
+                                            onTap: () {
+                                            
+                                              //isAscending=false;
+                                            },
+                                            child: const Icon(
+                                              Icons.arrow_upward,
+                                              color: Color.fromARGB(
+                                                  255, 59, 58, 58),
+                                            )),
+                                        GestureDetector(
+                                            onTap: () {},
+                                            child: const Icon(
+                                              Icons.arrow_downward,
+                                              color: Colors.red,
+                                            ))
+                                      ]),
                                     ],
                                   )),
                                   const DataColumn(label: Text("Demography")),
@@ -180,20 +194,19 @@ class _EmployeeListScreenState extends State<EmployeeListScreen> {
                                   (index) {
                                     if (index < value.usersData.length) {
                                       return DataRow(cells: [
-                                        DataCell(Text(
-                                            (value.usersData[index]['id']).toString())),
+                                        DataCell(Text((value.usersData[index]
+                                                ['id'])
+                                            .toString())),
                                         DataCell(Image.network(
                                             value.usersData[index]['image'])),
                                         DataCell(Text(
-                                           '${value.usersData[index]['firstName']} ${value.usersData[index]['maidenName']} ${value.usersData[index]['lastName']}')),
-                                        DataCell(
-                                            Text('${value.usersData[index]['gender']} / ${value.usersData[index]['age']}')),
+                                            '${value.usersData[index]['firstName']} ${value.usersData[index]['maidenName']} ${value.usersData[index]['lastName']}')),
+                                        DataCell(Text(
+                                            '${value.usersData[index]['gender']} / ${value.usersData[index]['age']}')),
                                         DataCell(Text(value.usersData[index]
                                             ['company']['title'])),
                                         DataCell(Text(
-                                          '${value.usersData[index]
-                                            ['company']['address']['state']} ,${value.usersData[index] 
-                                            ['company']['address']['country']}')),
+                                            '${value.usersData[index]['company']['address']['state']} ,${value.usersData[index]['company']['address']['country']}')),
                                       ]);
                                     } else {
                                       return const DataRow(cells: [
